@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header><h1>Edit Store</h1></header>
+    <section class="edit-store-form">
+        <form method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name"
+                       value="{{ store.name }}"/>
+            </div>
+            <div class="form-group">
+                <label for="url_prefix">URL Prefix</label>
+                <input type="text" class="form-control" id="url_prefix" name="url_prefix"
+                       value="{{ store.url_prefix }}"/>
+            </div>
+            <div class="form-group">
+                <label for="tag_name">Tag Name</label>
+                <input type="text" class="form-control" id="tag_name" name="tag_name"
+                       value="{{ store.tag_name }}" aria-describedby="tagNameHelp"/>
+                <small id="tagNameHelp" class="form-text text-muted">
+                    What HTML tag contains the information for the price?
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="query">Query</label>
+                <input type="text" class="form-control" id="query" name="query"
+                       value="{{ store.query }}" aria-describedby="queryHelp"/>
+                <small id="queryHelp" class="form-text text-muted">
+                    What query must be used to search for the price?
+                </small>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+            <a class="btn btn-secondary" href="{{ url_for('stores.index') }}">Cancel</a>
+        </form>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Price Alerts</title>
+</head>
+<body style="background-color:#F5F5DC">
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(80,80,120);width:100%;position:fixed;z-index:100">
+    <a class="navbar-brand" href="/">Pricing Alerts</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-1">
+                <a class="nav-link" href="{{ url_for('stores.index') }}">Stores</a>
+            </li>
+            <li class="nav-item mr-1">
+                <a class="nav-link" href="{{ url_for('alerts.index') }}">Alerts</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+
+<div class="login mr-3 mb-2" style="text-align:right;">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        {% if session.get('email') %}
+            <p class="hello-user" style="font-size:11.5pt;margin-right:10px;padding-top:3px;">
+                Hello, {{session.get('email')}}.
+            </p>
+        {% endif %}
+        {% if not session.get('email') %}
+            <a href="{{ url_for('users.login_user') }}">
+                <button class="btn btn-sm btn-light mr-1">Log In</button>
+            </a>
+        {% endif %}
+        {% if session.get('email') %}
+            <a href="{{ url_for('users.logout_user') }}">
+                <button class="btn btn-sm btn-light mr-1">Log Out</button>
+            </a>
+        {% endif %}
+        <a href="{{ url_for('users.register_user') }}">
+            <button class="btn btn-sm btn-light mr-1">Sign Up</button>
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %} <!-- Jinja2's way of defining temp var-->
+
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+</body>
+</html>

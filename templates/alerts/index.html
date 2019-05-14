@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header>
+        <h1>Alerts</h1>
+    </header>
+    <hr>
+    <p style="font-size:10pt;color:grey;margin-top:-10px;">
+        A list of your personal alerts.
+    </p>
+    <br>
+    <a class="btn btn-dark mb-4" href="{{ url_for('alerts.new_alert') }}">
+        New Alert
+    </a>
+    <div class="list-group mb-3">
+        {% for alert in alerts %}
+            <div class="list-group-item mb-4 alert" style="padding:25px">
+                <h4>{{ alert.item_name }}</h4>
+                <p style="font-size:10pt;font-style:italic;">
+                    <a href="{{ alert.item.url }}" style="color:grey;">{{ alert.item.url }}</a>
+                </p>
+                <hr align="left" style="width:75%;">
+                <h5 style="margin-bottom:20px;">Latest Price: CAD ${{ alert.item.price }}</h5>
+                <a class="btn btn-sm btn-secondary" href="{{ url_for('alerts.edit_alert', alert_id=alert._id) }}">
+                    Edit Alert
+                </a>
+                <a class="btn btn-sm btn-danger" href="{{ url_for('alerts.delete_alert', alert_id=alert._id) }}">
+                    Delete Alert <!-- TODO: use modals or pop-ups to enhance UX -->
+                </a>
+                <!--button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ugkjbdsafehabuj
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div-->
+            </div>
+        {% endfor %}
+    </div>
+
+    <h1></h1>
+
+</div>
+{% endblock %}
