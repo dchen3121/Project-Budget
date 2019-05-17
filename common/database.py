@@ -25,3 +25,9 @@ class Database:
     @staticmethod
     def remove(collection: str, query: Dict):
         Database.DATABASE[collection].remove(query)
+
+    @staticmethod
+    def find_all_sorted_by(collection: str, query: Dict, key: str, ascending: bool):
+        if ascending:
+            return Database.DATABASE[collection].find(query).sort(key, pymongo.ASCENDING)
+        return Database.DATABASE[collection].find(query).sort(key, pymongo.DESCENDING)

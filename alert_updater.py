@@ -1,4 +1,4 @@
-from models.alert import Alert
+from models.pricing.alert import Alert
 from dotenv import load_dotenv
 
 

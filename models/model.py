@@ -39,3 +39,15 @@ class Model(metaclass=ABCMeta):
     @classmethod
     def find_many_by(cls, attribute: str, value: str) -> List[T]:
         return [cls(**elem) for elem in Database.find(cls.collection, {attribute: value})]
+
+    @classmethod
+    def find_many_by_dict(cls, query: Dict) -> List[T]:
+        return [cls(**elem) for elem in Database.find(cls.collection, query)]
+
+    @classmethod
+    def find_sorted_ascending(cls, query: Dict, key: str):
+        return [cls(**elem) for elem in Database.find_all_sorted_by(cls.collection, query, key, True)]
+
+    @classmethod
+    def find_sorted_descending(cls, query: Dict, key: str):
+        return [cls(**elem) for elem in Database.find_all_sorted_by(cls.collection, query, key, False)]

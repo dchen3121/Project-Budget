@@ -13,9 +13,26 @@
     <a class="btn btn-dark mb-4" href="{{ url_for('alerts.new_alert') }}">
         New Alert
     </a>
+    <!-- Example split danger button -->
+    <div class="float-right btn-group">
+        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Sort
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{{ url_for('alerts.index') }}">Below Price Limit</a>
+            <a class="dropdown-item" href="{{ url_for('alerts.sort_alerts', sort_by='date_entered', asc='True') }}">Date Entered (Most Recent)</a>
+            <a class="dropdown-item" href="{{ url_for('alerts.sort_alerts', sort_by='date_entered', asc='False') }}">Date Entered (Oldest)</a>
+            <a class="dropdown-item" href="{{ url_for('alerts.sort_alerts', sort_by='item_name', asc='False') }}">Alphabetical</a>
+        </div>
+    </div>
     <div class="list-group mb-3">
         {% for alert in alerts %}
-            <div class="list-group-item mb-4 alert" style="padding:25px">
+            <div class="list-group-item mb-4 alert" style="padding:25px;
+            {% if alert.below_limit == 1 %}
+                background-color:#FFCCCC;
+            {% endif %}
+            ">
                 <h4>{{ alert.item_name }}</h4>
                 <p style="font-size:10pt;font-style:italic;">
                     <a href="{{ alert.item.url }}" style="color:grey;">{{ alert.item.url }}</a>
@@ -25,32 +42,35 @@
                 <a class="btn btn-sm btn-secondary" href="{{ url_for('alerts.edit_alert', alert_id=alert._id) }}">
                     Edit Alert
                 </a>
-                <a class="btn btn-sm btn-danger" href="{{ url_for('alerts.delete_alert', alert_id=alert._id) }}">
-                    Delete Alert <!-- TODO: use modals or pop-ups to enhance UX -->
-                </a>
-                <!--button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteAlertModal{{alert._id}}">
+                    Delete Alert
                 </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                {% if alert.below_limit == 1 %}
+                <a class="btn btn-success btn-sm" href="{{ alert.item.url }}" target="_blank">Buy Now!</a>
+                {% endif %}
+                <div class="modal fade" id="deleteAlertModal{{alert._id}}" tabindex="-1" role="dialog"
+                     aria-labelledby="deleteAlertLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                ugkjbdsafehabuj
+                                Are you sure you want to delete the alert for "{{ alert.item_name }}"?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-danger btn-sm"
+                                   href="{{ url_for('alerts.delete_alert', alert_id=alert._id) }}">
+                                    Delete
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div-->
+                </div>
             </div>
         {% endfor %}
     </div>

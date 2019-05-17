@@ -1,6 +1,6 @@
 import json
 from flask import request, render_template, Blueprint, redirect, url_for
-from models.store import Store
+from models.pricing.store import Store
 from models.user import requires_login, requires_admin
 
 store_blueprint = Blueprint('stores', __name__)

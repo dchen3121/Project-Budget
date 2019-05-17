@@ -1,15 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="display" class="carousel slide" data-ride="carousel">
+
+<div class="container head">
+    <h1 class="main-title" style="margin:0px 6% 10px 6%">
+        Project: Budget
+    </h1>
+    <h6 class="sub-main-title" style="margin:0px 6% 20px 6%">
+        Making budgeting a breeze.
+    </h6>
+    <p style="margin:0px 6% 60px 6%">
+        An all-in-one web service that allows you to create personalized alerts for items on your favourite web stores,
+        and track your day-to-day expenses at ease.
+    </p>
+</div>
+
+<div id="display" class="carousel slide" data-ride="carousel"
+     style="margin:auto;width:80%;overflow:hidden;">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="..." alt="First slide">
+            <img class="d-block w-100" src="../../static/images/sc1.PNG" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="carousel-descriptions">Keep alerts of your favourite items to get notified of price drops!</p>
+            </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="..." alt="Second slide">
+            <img class="d-block w-100" src="../../static/images/sc1.PNG" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+                <p class="carousel-descriptions">Keep track of your day-to-day expenses with our personal tracker!</p>
+            </div>
         </div>
-        <div class="carousel-item">
+        <!--div class="carousel-item">
             <img class="d-block w-100" src="..." alt="Third slide">
         </div>
         <div class="carousel-item active">
@@ -20,7 +41,7 @@
         </div>
         <div class="carousel-item">
             <img class="d-block w-100" src="..." alt="Sixth slide">
-        </div>
+        </div-->
     </div>
     <a class="carousel-control-prev" href="#display" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -31,4 +52,20 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+{% if not session.get('email') %}
+<div style="text-align:center;margin:80px 0px 80px 0px;">
+    <a class="btn btn-success btn-lg" href="{{ url_for('users.register_user') }}">Sign up today for FREE!!</a>
+</div>
+{% endif %}
+
+<!--div class="end" id="end">
+    <br>
+    <h4 class="end-text">Have questions, concerns, or feedback? Email us at
+        <a class="end-link" href="mailto:z539chen@edu.uwaterloo.ca">z539chen@edu.uwaterloo.ca</a>!
+    </h4>
+    <br>
+    <p class="end-text" style="font-size:10pt;">© 2019 Copyright: Zhizhou Chen</p>
+    <br>
+    <br>
+</div-->
 {% endblock %}

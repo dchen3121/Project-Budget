@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <header>
+        <h1>Personal Expenses</h1>
+    </header>
+    <hr>
+    <p style="font-size:10pt;color:grey;margin-top:-10px;">
+        A list of your recorded personal income and expenditures.
+    </p>
+    <br>
+    <a class="btn btn-dark mb-4" href="{{ url_for('spendings.new_spending') }}">
+        Create New
+    </a>
+    <div class="float-right btn-group">
+        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            Sort
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{{ url_for('spendings.index') }}">Date (Most Recent)</a>
+            <a class="dropdown-item" href="{{ url_for('spendings.sort', sort_by='date', asc='False') }}">Date (Oldest)</a>
+            <a class="dropdown-item" href="{{ url_for('spendings.sort', sort_by='category', asc='False') }}">Category</a>
+            <a class="dropdown-item" href="{{ url_for('spendings.sort', sort_by='price', asc='False') }}">Amount</a>
+        </div>
+    </div>
+    <div class="list-group mb-3">
+        {% if spendings %}
+        <table class="table" style="background-color:white;">
+            <thead>
+            <tr style="background-color:lightgrey;">
+                <th scope="col" style="margin-right:-10px;"></th>
+                <th scope="col">Date</th>
+                <th scope="col">Item</th>
+                <th scope="col">Category</th>
+                <th scope="col">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for spending in spendings %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('spendings.edit_spending', spending_id=spending._id) }}">
+                        <img class="edit" src="../../static/images/edit.png">
+                    </a>
+                    <a href="{{ url_for('spendings.delete_spending', spending_id=spending._id) }}">
+                        <img class="edit" src="../../static/images/delete.png">
+                    </a>
+                </td>
+                <th scope="row">{{ spending.date }}</th>
+                <td>{{ spending.title }}</td>
+                <td>{{ spending.category }}</td>
+                <td style="
+                {% if spending.is_expense %}
+                background-color:#FFC0C0;
+                {% else %}
+                background-color:#AAFFAA;
+                {% endif %}">${{ spending.price }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <h1></h1>
+
+</div>
+{% endblock %}
