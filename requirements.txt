@@ -1,0 +1,6 @@
+Flask
+pymongo
+beautifulsoup4
+requests
+passlib
+uwsgi
