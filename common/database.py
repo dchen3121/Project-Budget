@@ -7,7 +7,7 @@ class Database:
     # For localhost testing
     # URI = "mongodb://127.0.0.1:27017/pricing"
 
-    URI = os.environ.get('MONGOLAB_URI')
+    URI = os.environ.get('MONGODB_URI')
 
     # DATABASE = pymongo.MongoClient(URI).get_database()
     DATABASE = pymongo.MongoClient(URI).get_default_database()
